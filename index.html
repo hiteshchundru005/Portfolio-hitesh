@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hitesh Chundru | Full-Stack Developer & Data Engineer</title>
+    <style>
+        /* ==================== VARIABLES & RESET ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0e27;
+            --bg-secondary: #141829;
+            --bg-tertiary: #1e2139;
+            --accent-primary: #00d4ff;
+            --accent-secondary: #764ce3;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --border: #2a2f4a;
+            --success: #10b981;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ==================== NAVIGATION ==================== */
+        nav {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-menu a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--accent-primary);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 2.5px;
+            background: var(--accent-primary);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        /* ==================== HERO SECTION ==================== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.08), transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -5%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(118, 76, 227, 0.08), transparent 70%);
+            border-radius: 50%;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(30px); }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .hero .highlight {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .hero .tagline {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            padding: 0.9rem 2rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: var(--bg-primary);
+            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 212, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-primary);
+            border: 2px solid var(--accent-primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 212, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .scroll-indicator {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 2rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+
+        /* ==================== SECTIONS ==================== */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            scroll-margin-top: 80px;
+        }
+
+        .section-header {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 2rem;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* ==================== ABOUT SECTION ==================== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .about-text p {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .about-highlights {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .highlight-item {
+            background: var(--bg-secondary);
+            padding: 1rem 1.5rem;
+            border-radius: 6px;
+            border-left: 3px solid var(--accent-primary);
+            font-size: 0.95rem;
+        }
+
+        .about-image {
+            width: 100%;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(118, 76, 227, 0.1));
+            border: 2px solid var(--accent-primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: var(--transition);
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-image.placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ==================== SKILLS SECTION ==================== */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-card {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .skill-card:hover {
+            border-color: var(--accent-primary);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .skill-card h3 {
+            color: var(--accent-primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .skill-tag {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .skill-tag:hover {
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+        }
+
+        /* ==================== PROJECTS SECTION ==================== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-card:hover {
+            border-color: var(--accent-primary);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.15);
+            transform: translateY(-8px);
+        }
+
+        .project-header {
+            padding: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .project-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-top: 1rem;
+        }
+
+        .project-body {
+            padding: 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-badge {
+            background: rgba(118, 76, 227, 0.2);
+            color: var(--accent-secondary);
+            padding: 0.4rem 0.9rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(118, 76, 227, 0.4);
+        }
+
+        .project-footer {
+            display: flex;
+            gap: 1rem;
+            margin-top: auto;
+        }
+
+        .project-link {
+            flex: 1;
+            padding: 0.7rem 1rem;
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent-primary);
+            text-decoration: none;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            text-align: center;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .project-link:hover {
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+        }
+
+        /* ==================== EDUCATION SECTION ==================== */
+        .education-timeline {
+            margin-top: 2rem;
+        }
+
+        .education-item {
+            background: var(--bg-secondary);
+            border-left: 3px solid var(--accent-primary);
+            padding: 2rem;
+            border-radius: 6px;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+
+        .education-item:hover {
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .education-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .education-degree {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .education-year {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .education-institution {
+            color: var(--accent-primary);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .education-details {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .coursework {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .coursework-title {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .coursework-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .coursework-item {
+            background: rgba(0, 212, 255, 0.05);
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: var(--accent-primary);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        /* ==================== CONTACT SECTION ==================== */
+        .contact-content {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .contact-text {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+            color: var(--accent-primary);
+            font-weight: 600;
+            transition: var(--transition);
+            padding: 0.8rem 1.5rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        .contact-link:hover {
+            border-color: var(--accent-primary);
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .contact-icon {
+            font-size: 1.3rem;
+        }
+
+        /* ==================== FOOTER ==================== */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* ==================== ANIMATIONS ==================== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: var(--transition);
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--bg-primary);
+                flex-direction: column;
+                gap: 0;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu a {
+                padding: 1rem 2rem;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            section {
+                padding: 3rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .about-grid,
+            .education-header {
+                grid-template-columns: 1fr;
+                flex-direction: column;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+
+            .skills-grid,
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .contact-link {
+                justify-content: center;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-brand {
+                font-size: 1.1rem;
+            }
+
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .hero .tagline {
+                font-size: 1rem;
+            }
+
+            section {
+                padding: 2rem 1rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .about-highlights {
+                flex-direction: column;
+            }
+
+            .highlight-item {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ==================== NAVIGATION ==================== -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-brand">Hitesh</div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <p class="subtitle">Welcome, I'm</p>
+            <h1>Hitesh <span class="highlight">Chundru</span></h1>
+            <p class="subtitle">Full-Stack Developer & Data Engineer</p>
+            <p class="tagline">Building intelligent web applications and data-driven solutions | AI | Web Development | Data Analytics</p>
+            
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="downloadResume()">
+                    📥 Download Resume
+                </button>
+                <button class="btn btn-secondary" onclick="scrollToSection('contact')">
+                    Get In Touch
+                </button>
+            </div>
+
+            <div class="scroll-indicator">↓ Scroll to explore</div>
+        </div>
+    </section>
+
+    <!-- ==================== ABOUT SECTION ==================== -->
+    <section id="about">
+        <div class="section-header">
+            <h2 class="section-title">About Me</h2>
+            <p class="section-subtitle">Computer Science Student | Developer | Problem Solver</p>
+        </div>
+
+        <div class="about-grid">
+            <div class="about-text fade-in">
+                <p>I'm a Computer Science student with a passion for building efficient, scalable applications using modern technologies. With strong fundamentals in data structures, algorithms, and system design, I specialize in full-stack web development and artificial intelligence.</p>
+                
+                <p>My expertise spans across building responsive web applications, implementing machine learning solutions, and analyzing complex datasets to extract actionable insights. I'm driven by a commitment to writing clean, maintainable code and continuously expanding my technical knowledge.</p>
+
+                <p>I'm actively seeking internship and placement opportunities where I can contribute my skills while learning from experienced professionals in a collaborative environment.</p>
+
+                <div class="about-highlights">
+                    <div class="highlight-item">📊 Data-Driven Problem Solving</div>
+                    <div class="highlight-item">🔧 Full-Stack Development</div>
+                    <div class="highlight-item">🤖 AI & ML Implementation</div>
+                    <div class="highlight-item">⚡ Performance Optimization</div>
+                </div>
+            </div>
+
+            <div class="about-image fade-in">
+                <!-- INSTRUCTIONS: Replace 'your-photo.jpg' with your actual photo filename/URL -->
+                <!-- Options:
+                     1. Upload photo to same folder as HTML: use "photo.jpg"
+                     2. Use direct image URL: use "https://example.com/photo.jpg"
+                     3. Use GitHub raw link: use "https://raw.githubusercontent.com/yourname/repo/main/photo.jpg"
+                -->
+                <img src="assets/hiteshphoto.jpeg" alt="Hitesh Chundru" />
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SKILLS SECTION ==================== -->
+    <section id="skills">
+        <div class="section-header">
+            <h2 class="section-title">Technical Skills</h2>
+            <p class="section-subtitle">Tools and technologies I work with</p>
+        </div>
+
+        <div class="skills-grid">
+            <div class="skill-card fade-in">
+                <h3>Programming Languages</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Java</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">SQL</span>
+                </div>
+            </div>
+
+            <div class="skill-card fade-in">
+                <h3>Web Technologies</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">HTML5</span>
+                    <span class="skill-tag">CSS3</span>
+                    <span class="skill-tag">JavaScript (ES6+)</span>
+                    <span class="skill-tag">Node.js</span>
+                    <span class="skill-tag">Express</span>
+                </div>
+            </div>
+
+            <div class="skill-card fade-in">
+                <h3>Databases & Backend</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">MongoDB</span>
+                    <span class="skill-tag">MySQL</span>
+                    <span class="skill-tag">Firebase</span>
+                    <span class="skill-tag">RESTful APIs</span>
+                </div>
+            </div>
+
+            <div class="skill-card fade-in">
+                <h3>AI & Data Science</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Machine Learning</span>
+                    <span class="skill-tag">TensorFlow</span>
+                    <span class="skill-tag">Pandas</span>
+                    <span class="skill-tag">NumPy</span>
+                    <span class="skill-tag">Scikit-learn</span>
+                </div>
+            </div>
+
+            <div class="skill-card fade-in">
+                <h3>Data Visualization</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Matplotlib</span>
+                    <span class="skill-tag">Seaborn</span>
+                    <span class="skill-tag">Chart.js</span>
+                    <span class="skill-tag">Tableau</span>
+                </div>
+            </div>
+
+            <div class="skill-card fade-in">
+                <h3>Tools & Platforms</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Git & GitHub</span>
+                    <span class="skill-tag">VS Code</span>
+                    <span class="skill-tag">Jupyter Notebook</span>
+                    <span class="skill-tag">Linux</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PROJECTS SECTION ==================== -->
+    <section id="projects">
+        <div class="section-header">
+            <h2 class="section-title">Featured Projects</h2>
+            <p class="section-subtitle">Showcasing my development expertise and problem-solving abilities</p>
+        </div>
+
+        <div class="projects-grid">
+            <!-- Project 1: Finance Tracker -->
+            <div class="project-card fade-in">
+                <div class="project-header">
+                    <div class="project-icon">💰</div>
+                    <h3 class="project-title">Finance Tracker Web App</h3>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">A full-stack financial management application that enables users to efficiently track income, expenses, and savings. Features include secure user authentication, transaction history, budget analytics, and real-time spending insights dashboard.</p>
+                    
+                    <div class="tech-stack">
+                        <span class="tech-badge">HTML5</span>
+                        <span class="tech-badge">CSS3</span>
+                        <span class="tech-badge">JavaScript</span>
+                        <span class="tech-badge">Node.js</span>
+                        <span class="tech-badge">Express</span>
+                        <span class="tech-badge">MongoDB</span>
+                    </div>
+
+                    <div class="project-footer">
+                        <a href="https://friendly-chimera-57c867.netlify.app/" target="_blank" class="project-link">Live Demo</a>
+                        <a href="https://github.com/hiteshchundru005/finance-tracker" target="_blank" class="project-link">GitHub</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2: AI Drone Navigation -->
+            <div class="project-card fade-in">
+                <div class="project-header">
+                    <div class="project-icon">🤖</div>
+                    <h3 class="project-title">AI Drone Navigation System</h3>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">An intelligent autonomous drone navigation system using advanced pathfinding algorithms and AI for real-time obstacle avoidance. Includes interactive frontend visualization of drone movement, optimal route calculation, and simulation of complex navigation scenarios.</p>
+                    
+                    <div class="tech-stack">
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">Flask</span>
+                        <span class="tech-badge">AI Algorithms</span>
+                        <span class="tech-badge">JavaScript</span>
+                        <span class="tech-badge">Visualization</span>
+                    </div>
+
+                    <div class="project-footer">
+                        <a href="https://drone-navigation-ai.herokuapp.com" target="_blank" class="project-link">Live Demo</a>
+                        <a href="https://github.com/hiteshchundru005/drone-navigation" target="_blank" class="project-link">GitHub</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3: Data Analytics -->
+            <div class="project-card fade-in">
+                <div class="project-header">
+                    <div class="project-icon">📊</div>
+                    <h3 class="project-title">Data Analytics & ML Project</h3>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">A comprehensive data analytics project involving dataset preprocessing, exploratory data analysis, visualization, and predictive modeling. Implemented machine learning algorithms to extract insights, identify patterns, and build accurate predictive models for business intelligence.</p>
+                    
+                    <div class="tech-stack">
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">Pandas</span>
+                        <span class="tech-badge">NumPy</span>
+                        <span class="tech-badge">Matplotlib</span>
+                        <span class="tech-badge">Scikit-learn</span>
+                        <span class="tech-badge">ML Models</span>
+                    </div>
+
+                    <div class="project-footer">
+                        <a href="https://github.com/hiteshchundru005/data-analytics" target="_blank" class="project-link">View Details</a>
+                        <a href="https://github.com/hiteshchundru005/data-analytics" target="_blank" class="project-link">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== EDUCATION SECTION ==================== -->
+    <section id="education">
+        <div class="section-header">
+            <h2 class="section-title">Education</h2>
+            <p class="section-subtitle">Academic background and relevant coursework</p>
+        </div>
+
+        <div class="education-timeline">
+            <div class="education-item fade-in">
+                <div class="education-header">
+                    <div>
+                        <div class="education-degree">Integrated M.Tech in Computer Science</div>
+                        <div class="education-institution">SRM Institute of Science and Technology, SRM University</div>
+                    </div>
+                    <div class="education-year">2023 - 2028</div>
+                </div>
+                <div class="education-details">
+                    <p><strong>CGPA:</strong> 8.97/10</p>
+                    <p>Focused coursework in algorithm design, data structures, and modern technologies with emphasis on practical applications.</p>
+                    
+                    <div class="coursework">
+                        <div class="coursework-title">Relevant Coursework</div>
+                        <div class="coursework-list">
+                            <span class="coursework-item">Data Structures</span>
+                            <span class="coursework-item">Algorithms</span>
+                            <span class="coursework-item">DBMS</span>
+                            <span class="coursework-item">Operating Systems</span>
+                            <span class="coursework-item">Computer Networks</span>
+                            <span class="coursework-item">Web Development</span>
+                            <span class="coursework-item">Machine Learning</span>
+                            <span class="coursework-item">Data Science</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACT SECTION ==================== -->
+    <section id="contact">
+        <div class="section-header">
+            <h2 class="section-title">Let's Connect</h2>
+            <p class="section-subtitle">I'm open to opportunities and always happy to discuss projects</p>
+        </div>
+
+        <div class="contact-content">
+            <p class="contact-text">Whether you have a project idea, job opportunity, or just want to chat about technology, feel free to reach out. I'm actively seeking internship and placement opportunities.</p>
+
+            <div class="contact-links">
+                <a href="mailto:chowdaryhitesh8@gmail.com" class="contact-link">
+                    <span class="contact-icon">✉️</span>
+                    <span>Email</span>
+                </a>
+                <a href="https://www.linkedin.com/in/hitesh-chundru-82a374259" class="contact-link" target="_blank">
+                    <span class="contact-icon">💼</span>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="https://github.com/hiteshchundru005" class="contact-link" target="_blank">
+                    <span class="contact-icon">🐙</span>
+                    <span>GitHub</span>
+                </a>
+            </div>
+
+            <button class="btn btn-primary" onclick="downloadResume()">
+                📥 Download Resume
+            </button>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer>
+        <p>&copy; 2024 Hitesh Chundru. All rights reserved. Built with HTML, CSS & JavaScript.</p>
+    </footer>
+
+    <script>
+        // ==================== MOBILE MENU TOGGLE ====================
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when a link is clicked
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // ==================== SCROLL ANIMATIONS ====================
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(element => {
+            observer.observe(element);
+        });
+
+        // ==================== ACTIVE NAV HIGHLIGHTING ====================
+        window.addEventListener('scroll', () => {
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            let current = '';
+
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // ==================== SMOOTH NAVBAR STYLING ====================
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.boxShadow = '0 4px 30px rgba(0, 212, 255, 0.1)';
+            } else {
+                nav.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.3)';
+            }
+        });
+
+        // ==================== UTILITY FUNCTIONS ====================
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function downloadResume() {
+            // ⬇️ INSTRUCTIONS: Replace the URL below with your actual resume PDF URL
+            // Options:
+            // 1. Upload to Google Drive, copy sharing link
+            // 2. Upload to GitHub and use raw content URL
+            // 3. Use a service like Firebase Storage, AWS S3, or Dropbox
+            // 4. Use a free hosting service like Vercel or Netlify
+            
+            const resumeURL = 'https://drive.google.com/file/d/1p5bQUkFn1j5Jf7nWlAHKEq-wp398yTAY/view?usp=drive_link';
+            
+            if (resumeURL.includes('your-resume-link')) {
+                alert('⚠️ Please update the resume URL in the downloadResume() function with your actual resume link!');
+                return;
+            }
+            
+            window.open(resumeURL, '_blank');
+        }
+
+        // ==================== CONSOLE MESSAGE ====================
+        console.log('%c Welcome to Hitesh\'s Portfolio! 🚀', 'font-size: 20px; color: #00d4ff; font-weight: bold;');
+        console.log('%c Full-Stack Developer | Data Engineer | AI Enthusiast', 'font-size: 14px; color: #764ce3;');
+    </script>
+</body>
+</html>
